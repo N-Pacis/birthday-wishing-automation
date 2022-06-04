@@ -61,7 +61,6 @@ public class UserController {
 
         String encodedPassword = bCryptPasswordEncoder.encode(dto.getPassword());
         Role role = roleService.findByName(ERole.STANDARD);
-
         user.setEmail(dto.getEmail());
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
@@ -70,6 +69,7 @@ public class UserController {
         user.setPassword(encodedPassword);
         user.setStatus(EUserStatus.WAIT_EMAIL_VERIFICATION);
         user.setRoles(Collections.singleton(role));
+        user.setDOB(dto.getDOB());
 
         User entity = this.userService.create(user);
 
