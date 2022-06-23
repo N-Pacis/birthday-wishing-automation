@@ -10,7 +10,9 @@ import rw.automation.birthdayWishing.v1.security.ValidPassword;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 
 @Getter
 @Data
@@ -32,6 +34,9 @@ public class SignUpDTO {
     private  String mobile;
 
     private EGender gender;
+
+    @NotNull
+    private LocalDate DOB;
 
     @ValidPassword
     private  String password;
