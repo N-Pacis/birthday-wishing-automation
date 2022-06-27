@@ -16,6 +16,7 @@ import rw.automation.birthdayWishing.v1.utils.Utility;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -52,6 +53,10 @@ public class User extends InitiatorAudit {
     @Column(name = "gender")
     private EGender gender;
 
+    @JsonIgnore
+    @Column(name = "dob")
+    private LocalDate DOB;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private EUserStatus status = EUserStatus.WAIT_EMAIL_VERIFICATION;
@@ -68,7 +73,7 @@ public class User extends InitiatorAudit {
     private File profileImage;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
