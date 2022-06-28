@@ -11,6 +11,7 @@ import rw.automation.birthdayWishing.v1.enums.EGender;
 import rw.automation.birthdayWishing.v1.enums.EUserStatus;
 import rw.automation.birthdayWishing.v1.models.User;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -32,6 +33,8 @@ public class UserPrincipal implements UserDetails {
     private String mobile;
 
     private EGender gender;
+
+    private LocalDate DOB;
 
 
     @JsonIgnore
@@ -55,6 +58,7 @@ public class UserPrincipal implements UserDetails {
                 user.getLastName(),
                 user.getPhoneNumber(),
                 user.getGender(),
+                user.getDOB(),
                 user.getPassword(),
                 user.getStatus(),
                 authorities);
