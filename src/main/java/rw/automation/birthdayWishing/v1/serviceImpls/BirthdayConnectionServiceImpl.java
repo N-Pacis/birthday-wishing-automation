@@ -3,6 +3,7 @@ package rw.automation.birthdayWishing.v1.serviceImpls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import rw.automation.birthdayWishing.v1.enums.EBirthdayConnectionStatus;
 import rw.automation.birthdayWishing.v1.models.BirthdayConnection;
 import rw.automation.birthdayWishing.v1.models.User;
@@ -11,6 +12,7 @@ import rw.automation.birthdayWishing.v1.services.IBirthdayConnectionService;
 
 import java.util.List;
 
+@Service
 public class BirthdayConnectionServiceImpl implements IBirthdayConnectionService {
     @Autowired
     private IBirthdayConnectionRepository birthdayConnectionRepository;

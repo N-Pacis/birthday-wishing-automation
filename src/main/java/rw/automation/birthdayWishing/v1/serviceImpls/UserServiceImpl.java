@@ -95,7 +95,7 @@ public class UserServiceImpl implements IUserService {
         if (isNotUniqueInVerified(user)) {
             throw new BadRequestException(String.format("User with email '%s' or phone number '%s' already exists", user.getEmail(), user.getPhoneNumber()));
         } else if (isNotUnique(user)) {
-                throw new BadRequestException(String.format("User with email '%s' or phone number '%s'", user.getEmail(), user.getPhoneNumber()));
+                throw new BadRequestException(String.format("User with email '%s' or phone number '%s' already exists", user.getEmail(), user.getPhoneNumber()));
         }
     }
 
