@@ -1,14 +1,21 @@
 package rw.automation.birthdayWishing.v1.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import rw.automation.birthdayWishing.v1.dtos.ChangePasswordDTO;
 import rw.automation.birthdayWishing.v1.fileHandling.File;
 import rw.automation.birthdayWishing.v1.models.User;
 import rw.automation.birthdayWishing.v1.utils.Profile;
 
+import java.util.List;
 import java.util.UUID;
 
 
 public interface IUserService {
+
+    List<User> listActiveUsers();
+
+    Page<User> getActiveUsers(Pageable pageable);
 
     User findById(UUID id);
 

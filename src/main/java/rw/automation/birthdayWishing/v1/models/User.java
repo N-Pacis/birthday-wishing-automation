@@ -57,13 +57,16 @@ public class User extends InitiatorAudit {
     @Column(name = "dob")
     private LocalDate DOB;
 
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private EUserStatus status = EUserStatus.WAIT_EMAIL_VERIFICATION;
 
+    @JsonIgnore
     @Column(name = "rejection_description")
     private String rejectionDescription;
 
+    @JsonIgnore
     @Column(name = "activation_code")
     private String activationCode = Utility.randomUUID(6, 0, 'N');
 
@@ -108,6 +111,13 @@ public class User extends InitiatorAudit {
         this.status = status;
         this.roles = roles;
         this.password = password;
+    }
+
+    public User(UUID id, String firstName, String lastName, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
     public ERole getRole() {

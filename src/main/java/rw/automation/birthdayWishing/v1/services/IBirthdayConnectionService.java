@@ -7,14 +7,19 @@ import rw.automation.birthdayWishing.v1.models.BirthdayConnection;
 import rw.automation.birthdayWishing.v1.models.User;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface IBirthdayConnectionService {
+
+    BirthdayConnection findById(UUID id);
+
+    Boolean checkIfUserIsIntendedBirthdayConnectionUser(User user,BirthdayConnection birthdayConnection);
 
     List<BirthdayConnection> listUserBirthdayConnections(User user);
 
     Page<BirthdayConnection> getUserBirthdayConnections(User user, Pageable pageable);
 
-    void saveBirthdayConnection(BirthdayConnection birthdayConnection);
+    BirthdayConnection saveBirthdayConnection(BirthdayConnection birthdayConnection);
 
     void approveBirthdayConnection(BirthdayConnection birthdayConnection);
 

@@ -1,6 +1,8 @@
 package rw.automation.birthdayWishing.v1.serviceImpls;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,6 @@ import rw.automation.birthdayWishing.v1.services.IUserService;
 import rw.automation.birthdayWishing.v1.services.MailService;
 import rw.automation.birthdayWishing.v1.utils.Mapper;
 import rw.automation.birthdayWishing.v1.utils.Profile;
-import rw.automation.birthdayWishing.v1.enums.ERole;
 
 import java.util.*;
 
@@ -33,6 +34,18 @@ public class UserServiceImpl implements IUserService {
         this.mailService = mailService;
         this.roleService = iRoleService;
         this.userRepository = userRepository;
+    }
+
+    @Override
+    public List<User> listActiveUsers() {
+        User user = this.getLoggedInUser();
+        return userRepository.findByStatusAndEmailNotLike(EUserStatus.ACTIVE,user.getEmail());
+    }
+
+    @Override
+    public Page<User> getActiveUsers(Pageable pageable) {
+        User user = this.getLoggedInUser();
+        return userRepository.findByStatusAndEmailNot(EUserStatus.ACTIVE,user.getEmail(),pageable);
     }
 
     @Override

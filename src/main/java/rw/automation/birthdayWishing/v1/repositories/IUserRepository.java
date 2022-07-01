@@ -1,11 +1,14 @@
 package rw.automation.birthdayWishing.v1.repositories;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import rw.automation.birthdayWishing.v1.enums.EUserStatus;
 import rw.automation.birthdayWishing.v1.models.User;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,6 +17,9 @@ public interface IUserRepository extends JpaRepository<User, UUID> {
 
     Optional<User> findByEmail(String email);
 
+    List<User> findByStatusAndEmailNotLike(EUserStatus status,String email);
+
+    Page<User> findByStatusAndEmailNot(EUserStatus status, String email,Pageable pageable);
 
     boolean existsByActivationCodeAndEmail(String activationCode, String email);
 

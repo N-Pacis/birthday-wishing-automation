@@ -8,6 +8,7 @@ import rw.automation.birthdayWishing.v1.models.BirthdayConnection;
 import rw.automation.birthdayWishing.v1.models.User;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface IBirthdayConnectionRepository extends JpaRepository<BirthdayConnection, UUID> {
@@ -26,4 +27,6 @@ public interface IBirthdayConnectionRepository extends JpaRepository<BirthdayCon
     List<BirthdayConnection> findBirthdayConnectionByConnectionRequestorAndStatus(User user,EBirthdayConnectionStatus status);
 
     Page<BirthdayConnection> findBirthdayConnectionByConnectionRequestorAndStatus(User user,EBirthdayConnectionStatus status,Pageable pageable);
+
+    Optional<BirthdayConnection> findBirthdayConnectionByConnectionRequestorAndIntendedUser(User connectionRequestor, User intendedUser);
 }

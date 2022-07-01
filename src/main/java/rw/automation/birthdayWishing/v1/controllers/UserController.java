@@ -3,9 +3,13 @@ package rw.automation.birthdayWishing.v1.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +23,7 @@ import rw.automation.birthdayWishing.v1.payload.ApiResponse;
 import rw.automation.birthdayWishing.v1.services.IFileService;
 import rw.automation.birthdayWishing.v1.services.IRoleService;
 import rw.automation.birthdayWishing.v1.services.IUserService;
+import rw.automation.birthdayWishing.v1.utils.Constants;
 import rw.automation.birthdayWishing.v1.utils.Formatter;
 import rw.automation.birthdayWishing.v1.dtos.ChangePasswordDTO;
 import rw.automation.birthdayWishing.v1.dtos.SignUpDTO;
@@ -47,6 +52,12 @@ public class UserController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.fileService = fileService;
         this.fileStorageService = fileStorageService;
+    }
+
+    @GetMapping("/active-users/as-list")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<ApiResponse> listActiveUsers(){
+        return ResponseEntity.ok(ApiResponse.success(userService.listActiveUsers()));
     }
 
     @GetMapping(path = "/current-user")
