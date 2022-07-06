@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import rw.automation.birthdayWishing.v1.enums.EUserStatus;
 import rw.automation.birthdayWishing.v1.models.User;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,5 +30,10 @@ public interface IUserRepository extends JpaRepository<User, UUID> {
 
     @Query("SELECT u FROM User u WHERE  ( (u.email = :email ) OR (u.phoneNumber = :phoneNumber ))  AND (u.status <> :status) ")
     Optional<User> findByEmailOrPhoneNumberAndStatusNot(String email, String phoneNumber, EUserStatus status);
+
+    @Query(value = "select u from User u where month(u.DOB) = ?1 and day(u.DOB) = ?2 and u.status = ?3")
+    List<User> findByDOBAndStatus(int month, int dat,EUserStatus status);
+
+    Page<User> findByDOBAndStatus(LocalDate DOB, EUserStatus status,Pageable pageable);
 
 }
