@@ -15,6 +15,7 @@ import rw.automation.birthdayWishing.v1.utils.Mail;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 
 @Service
 public class MailService {
@@ -79,6 +80,17 @@ public class MailService {
     }
 
     @Async
+    public void sendBirthdayWishingToBirthdayHolder(User user){
+        Mail mail = new Mail(
+                appName,
+                "Happy Birthday "+user.getFullName(),
+                user.getFullName(),user.getEmail(),"wish-birthday-automation",user.getEmail()
+        );
+        sendEmail(mail);
+    }
+
+
+    @Async
     public void sendEmail(Mail mail) {
         try {
             MimeMessage message = mailSender.createMimeMessage();
@@ -88,6 +100,7 @@ public class MailService {
             context.setVariable("app_name",mail.getAppName());
             context.setVariable("data", mail.getData());
             context.setVariable("name", mail.getFullNames());
+            context.setVariable("date",LocalDate.now());
             context.setVariable("otherData", mail.getOtherData());
 
             String html = templateEngine.process(mail.getTemplate(), context);
