@@ -25,7 +25,7 @@ public class BirthdayWishingCron {
     @Autowired
     private MailService mailService;
 
-    @Scheduled(cron = "0 10 11 * * ?")
+    @Scheduled(cron = "0 30 23 * * ?")
     public void runEveryTwoMinutes(){
         System.out.println("--- RUNNING CRON JOB ----");
         LocalDate localDate = LocalDate.now();
@@ -35,8 +35,9 @@ public class BirthdayWishingCron {
             mailService.sendBirthdayWishingToBirthdayHolder(user);
             for(BirthdayConnection birthdayConnection:birthdayConnections){
                 User userToSendEmailTo = birthdayConnection.getConnectionRequestor();
-                System.out.println("Names of the user to send email to: "+userToSendEmailTo.getFullName());
+                mailService.sendBirthdayWishingReminderToBirthdayHolderConnections(userToSendEmailTo,user);
             }
         }
+        System.out.println("--- CRON JOB FINISHED ---");
     }
 }
