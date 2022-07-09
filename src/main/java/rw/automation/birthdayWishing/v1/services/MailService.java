@@ -89,6 +89,16 @@ public class MailService {
         sendEmail(mail);
     }
 
+    @Async
+    public void sendBirthdayWishingReminderToBirthdayHolderConnections(User user, User birthdayHolder){
+        Mail mail = new Mail(
+                appName,
+                birthdayHolder.getFullName()+"'s birthday",
+                user.getFullName(),user.getEmail(),"remind-birthday-automation",birthdayHolder.getFullName()
+        );
+        sendEmail(mail);
+    }
+
 
     @Async
     public void sendEmail(Mail mail) {
@@ -102,6 +112,7 @@ public class MailService {
             context.setVariable("name", mail.getFullNames());
             context.setVariable("date",LocalDate.now());
             context.setVariable("otherData", mail.getOtherData());
+            context.setVariable("birthdayHolder",mail.getData());
 
             String html = templateEngine.process(mail.getTemplate(), context);
             helper.setTo(mail.getToEmail());
