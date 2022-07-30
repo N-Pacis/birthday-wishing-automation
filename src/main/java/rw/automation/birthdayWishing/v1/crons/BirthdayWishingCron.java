@@ -25,7 +25,7 @@ public class BirthdayWishingCron {
     @Autowired
     private MailService mailService;
 
-    @Scheduled(cron = "0 23 21 * * ?")
+    @Scheduled(cron = "0 30 21 * * ?")
     public void wishBirthday(){
         System.out.println("--- RUNNING CRON JOB ----");
         LocalDate localDate = LocalDate.now();
