@@ -88,7 +88,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public boolean isNotUnique(User user) {
+    public boolean  isNotUnique(User user) {
         Optional<User> userOptional = this.userRepository.findByEmailOrPhoneNumber(user.getEmail(), user.getPhoneNumber());
         return userOptional.isPresent();
     }

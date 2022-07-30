@@ -25,8 +25,8 @@ public class BirthdayWishingCron {
     @Autowired
     private MailService mailService;
 
-    @Scheduled(cron = "0 30 23 * * ?")
-    public void runEveryTwoMinutes(){
+    @Scheduled(cron = "0 20 21 * * ?")
+    public void wishBirthday(){
         System.out.println("--- RUNNING CRON JOB ----");
         LocalDate localDate = LocalDate.now();
         List<User> users = userRepository.findByDOBAndStatus(localDate.getMonthValue(),localDate.getDayOfMonth(),EUserStatus.ACTIVE);
